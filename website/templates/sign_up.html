@@ -1,48 +1,42 @@
-{% extends "base.html" %} {% block title %}Sign Up{% endblock %} {% block content
-    %}
-    <form method="POST">
-        <h3 align="center">Sign Up</h3>
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input 
-                type="email" 
-                class="form-control" 
-                id="email" 
-                name="email" 
-                placeholder="Enter email"
-            />
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" type="image/x-icon" href="/static/image/logo-transparent.png">
+    <title>Calorun</title>
+
+    <link rel="stylesheet" href="/static/content/sign_up.css">
+</head>
+
+<body>
+    <div class="login-box">
+        <div class="logo-container">
+            <img class="logo" src="/static/image/logo.png">
         </div>
-        <div class="form-group">
-            <label for="firstName">First Name</label>
-            <input 
-                type="text" 
-                class="form-control" 
-                id="firstName" 
-                name="firstName" 
-                placeholder="Enter first name"
-            />
+        <div class="sign-up-text">
+            <p>Sign Up</p>
         </div>
-        <div class="form-group">
-            <label for="password1">Password</label>
-            <input 
-                type="password" 
-                class="form-control" 
-                id="password1" 
-                name="password1" 
-                placeholder="Enter password"
-            />
+        <div class="input-box-container">
+            <p style="margin-left: 7px;">Username</p>
+            <input class="input-box" placeholder="username">
         </div>
-        <div class="form-group">
-            <label for="password2">Password (Confirm)</label>
-            <input 
-                type="password" 
-                class="form-control" 
-                id="password2" 
-                name="password2" 
-                placeholder="Confirm password"
-            />
+        <div class="input-box-container">
+            <p style="margin-left: 7px;">Password</p>
+            <input class="input-box" type="password" placeholder="password">
         </div>
-        <br />
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-    {% endblock %}
+        <div class="input-box-container">
+            <p style="margin-left: 7px;">Password (Confirm)</p>
+            <input class="input-box" type="password" placeholder="Confirm password">
+        </div>
+        <div class="login-button-container">
+            <button class="login-button">Sign in</button>
+        </div>
+    </div>
+</body>
+
+</html>

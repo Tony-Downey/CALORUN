@@ -1,0 +1,126 @@
+body {
+    background-image: url(/static/image/background.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+textarea:focus,
+input:focus {
+    outline: none;
+}
+
+p {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.login-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+
+    height: 500px;
+    width: 400px;
+
+    background-color: rgba(0, 0, 0, 0.85);
+    border-radius: 40px;
+
+    box-shadow: 0px 0px 20px rgb(0, 0, 0);
+}
+
+.logo-container {
+    margin-top: 5px;
+    width: 400px;
+    height: 50px;
+    /* Center child horizontally*/
+    display: flex;
+    justify-content: center;
+}
+
+.logo {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.sign-up-text {
+    margin-top: 60px;
+
+    width: 400px;
+    height: 40px;
+
+    font-family: Arial;
+    font-weight: bold;
+    font-size: 30px;
+
+    display: flex;
+    justify-content: center;
+
+    color: white;
+}
+
+.input-box-container {
+    font-family: Arial;
+    font-weight: bold;
+    color: white;
+    font-size: 20px;
+}
+
+.input-box {
+    margin-top: 10px;
+    margin-left: 7px;
+
+    height: 35px;
+    width: 380px;
+
+    border: none;
+
+    background-color: black;
+    color: red;
+    font-size: 15px;
+    font-weight: bold;
+
+    border-radius: 5px;
+
+    margin-bottom: 10px;
+
+}
+
+.login-button-container {
+    margin-top: 10px;
+
+    height: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.login-button {
+    width: 380px;
+    height: 50px;
+
+    border: none;
+    border-radius: 10px;
+
+    background-color: red;
+    color: black;
+
+    font-family: Arial;
+    font-size: 30px;
+    font-weight: bold;
+
+    transition: background-color 0.15s;
+}
+
+.login-button:hover {
+    background-color: rgb(201, 0, 0);
+}
+
+.login-button:active {
+    background-color: darkred;
+}
