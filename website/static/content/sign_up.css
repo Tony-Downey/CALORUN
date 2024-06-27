@@ -7,11 +7,6 @@ body {
     background-size: cover;
 }
 
-textarea:focus,
-input:focus {
-    outline: none;
-}
-
 p {
     margin-top: 0px;
     margin-bottom: 0px;
