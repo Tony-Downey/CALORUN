@@ -1,38 +1,56 @@
-from flask import Blueprint, render_template, request, flash
-from flask_login import current_user
-
+from flask import Blueprint, render_template, request, flash, redirect, url_for
+from .models import User
+from werkzeug.security import generate_password_hash, check_password_hash
+from . import db
+from flask_login import login_user, login_required, logout_user, current_user
 
 auth = Blueprint('auth', __name__)
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
-    return render_template("login.html", message='This is the Login Page', user=current_user, boolean = True)
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
 
+        user = User.query.filter_by(username=username).first()
+        if user:
+            if check_password_hash(user.password, password):
+                flash('Logged in successfully', category='success')
+                login_user(user, remember=True)
+                return redirect(url_for('views.home'))
+            else:
+                flash('Incorrect password, try again', category="error")
+        else:
+            flash('Email does not exist.', category='error')
+        
+    return render_template("login.html")
 
 @auth.route('/logout')
+@login_required
 def logout():
-    return "<p>logout<p>"
-
+    logout_user()
+    return redirect(url_for('auth.login'))
 
 @auth.route('/sign-up', methods=['GET', 'POST'])
-def Sign_up():  
+def sign_up():
     if request.method == 'POST':
-        email = request.form.get('email')
-        firstName = request.form.get('firstName')
-        password1 = request.form.get('password1')
-        password2 = request.form.get('password2')
+        username = request.form.get('username')
+        password = request.form.get('password')
+        confirm_password = request.form.get('confirm_password')
 
-        if len(email) < 4:
-            flash('Invalid email(must be greater than 3 characters)', category='error') #Message flashing funtion of Flask
-        elif len(firstName) < 2:
-            flash('Invalid Name(must be greater than 1 characters)', category='error')
-        elif password1 != password2:
+        if len(username) < 2:
+            flash('Invalid username (must be greater than 1 characters)', category='error') #Message flashing funtion of Flask
+        elif password != confirm_password:
             flash('Password don\'t match', category='error')
-        elif len(password1) < 7:
+        elif len(password) < 7:
             flash('Invalid password(must be greater then 6 characters)', category='error')
         else:
+            new_user = User(username = username, password = generate_password_hash(password, method='pbkdf2:sha256'))
+            db.session.add(new_user)
+            db.session.commit() 
+            
             flash('Account successfully created', category='success')
-
-
-    return render_template("sign_up.html", user=current_user)
-
+            
+            return redirect(url_for('views.home'))
+            
+    return render_template("sign_up.html")

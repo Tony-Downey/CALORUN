@@ -36,7 +36,7 @@ p {
 .logo-container {
     margin-top: 5px;
     width: 400px;
-    height: 50px;
+    height: 100px;
     /* Center child horizontally*/
     display: flex;
     justify-content: center;
@@ -50,7 +50,6 @@ p {
 }
 
 .sign-in-text {
-    margin-top: 60px;
 
     width: 400px;
     height: 40px;
@@ -125,8 +124,8 @@ p {
     background-color: darkred;
 }
 
-.sign-up-text {
-    margin-top: 30px;
+.check-sign-up-text {
+    margin-top: 25px;
 
     display: flex;
     justify-content: center;
@@ -137,4 +136,10 @@ p {
 
 .sign-up {
     color: red;
+}
+.sign-up:hover {
+    color: rgb(200, 0, 0);
+}
+.sign-up:active {
+    color: darkred;
 }
