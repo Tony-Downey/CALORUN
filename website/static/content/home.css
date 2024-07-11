@@ -1,0 +1,182 @@
+body {
+  background-image: url(/static/image/background.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+
+  min-height: 100%;
+}
+
+html {
+  min-height: 100%;
+}
+
+p {
+  padding-top: 21px;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  position: relative;
+  top: 10%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+
+  height: 800px;
+  width: 85%;
+
+  background-color: black;
+  border-radius: 20px;
+  border: none;
+
+  box-shadow: 0px 0px 20px rgb(0, 0, 0);
+  z-index: -10;
+}
+
+.title-and-logo {
+  position: absolute;
+  display: flex;
+  left: 30px;
+  top: 300px;
+  
+  width: 640px;
+  height: 500px;
+  padding-top: 200px;
+  padding-left: 50px;
+}
+
+.title-and-logo::after {
+  content: "";
+  width: 3px;
+  height: 100%;
+  position: absolute;
+  right: 20px;
+  top: 0;
+  background-color:rgb(198, 198, 198);
+  z-index: -1;
+  transform: skew(0deg);
+}
+
+.web-title {
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  font-size: 60px;
+  padding-top: 15px;
+}
+
+.logo {
+  width: 80px;
+  height: 100px;
+  object-fit: cover;
+  object-position: center;
+  margin-top: 10px;
+}
+
+.homepage-background {
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border-bottom-right-radius: 20px;
+
+  top: 300px;
+  right: 0px;
+
+  width: 640px;
+  height: 500px;
+}
+
+.home-background {
+  flex-shrink: 0;
+  min-width: 100%;
+  min-height: 100%
+}
+
+
+.calories-counter-box {
+  display: flex;
+  flex-direction: row;
+  column-gap: 1px;
+
+  position: absolute;
+  top: 80%;
+  left: 25%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+
+  height: 100px;
+  width: 400px;
+
+  background-color: rgba(0, 0, 0, 0.621);
+  border-radius: 40px;
+  border: 0px solid red;
+
+  box-shadow: 0px 0px 20px rgb(206, 60, 60);
+  position: absolute;
+
+  color: white;
+  font-weight: bold;
+  text-align: left;
+  font-size: 22px;
+
+  padding-left: 15px;
+  padding-top: 10px;
+
+  animation: slideInLeft 0.7s ease-in 1 normal none;
+}
+
+.calories-counter-logo {
+  margin-bottom: 10px;
+}
+
+
+.distance-box {
+  display: flex;
+
+  position: absolute;
+  top: 80%;
+  left: 75%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+
+  height: 100px;
+  width: 400px;
+
+  background-color: rgba(0, 0, 0, 0.621);
+  border-radius: 40px;
+  border: 0 solid red;
+
+  box-shadow: 0px 0px 20px rgb(206, 60, 60);
+
+  color: white;
+  font-weight: bold;
+  font-size: 22px;
+
+  padding-left: 15px;
+  padding-top: 10px;
+
+  animation: slideInLeft 0.9s ease-in 1 normal none;
+}
+
+.distance-box-logo {
+  margin-bottom: 10px;
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-900px);
+  }
+
+  to {
+    transform: translateX(-200px);
+  }
+}
+
+
