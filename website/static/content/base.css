@@ -28,10 +28,15 @@ button:focus
 
 .custom-navbar {
   width: 95px;
+  justify-content: center;
   background-color: rgba(255, 0, 0, 0);
   border-color: rgba(red, green, blue, 0);
 
   transition: background-color 0.5s border-color 1s;
+}
+
+.custom-navbar .navbar {
+  padding: none;
 }
 #custom-navbar:target {
   background-color: rgba(255, 0, 0, 0.384);
