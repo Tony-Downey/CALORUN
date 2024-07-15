@@ -4,31 +4,23 @@ body {
   background-repeat: no-repeat;
   background-position: center center;
   background-attachment: fixed;
-
-  min-height: 100%;
-}
-
-html {
-  min-height: 100%;
-}
-
-p {
-  padding-top: 21px;
+  background-size: cover;
 }
 
 .header {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
 
-  position: relative;
-  top: 10%;
-  left: 50%;
-  margin-right: -50%;
-  transform: translate(-50%, -50%);
 
-  height: 800px;
-  width: 85%;
+  position: absolute;
+  margin: none;
+  /* transform: translate(-50%, -50%); */
+  top: 0;
+  left: 8%;
+  height: 370px;
+  width: 84%;
 
   background-color: black;
   border-radius: 20px;
@@ -39,35 +31,27 @@ p {
 }
 
 .title-and-logo {
-  position: absolute;
   display: flex;
-  left: 30px;
-  top: 300px;
-  
-  width: 640px;
-  height: 500px;
-  padding-top: 200px;
-  padding-left: 50px;
+  justify-content: center;
+  width: 50%;
 }
 
-.title-and-logo::after {
+/* .header::after {
   content: "";
   width: 3px;
   height: 100%;
   position: absolute;
-  right: 20px;
-  top: 0;
-  background-color:rgb(198, 198, 198);
+  right: 51%;
+  background-color: rgb(198, 198, 198);
   z-index: -1;
-  transform: skew(0deg);
-}
+  transform: skew(360deg);
+} */
 
 .web-title {
   color: white;
   text-align: center;
   font-weight: bold;
   font-size: 60px;
-  padding-top: 15px;
 }
 
 .logo {
@@ -75,35 +59,37 @@ p {
   height: 100px;
   object-fit: cover;
   object-position: center;
-  margin-top: 10px;
 }
 
 .homepage-background {
   display: flex;
-  position: absolute;
   justify-content: center;
   align-items: center;
   overflow: hidden;
   border-bottom-right-radius: 20px;
 
-  top: 300px;
-  right: 0px;
+  border-left-style: solid;
+  border-left-width: 3px;
+  border-left-color: gray;
 
-  width: 640px;
-  height: 500px;
+  top: 0px;
+  right: 0px;
+  width: 50%;
+  height: 100%;
 }
 
 .home-background {
-  flex-shrink: 0;
-  min-width: 100%;
-  min-height: 100%
+  flex-shrink: 1;
+  display: block;
+  object-fit: cover;
+  object-position: left 50%;
+  height: 100%;
 }
-
 
 .calories-counter-box {
   display: flex;
-  flex-direction: row;
-  column-gap: 1px;
+  justify-content: space-around;
+  align-items: center;
 
   position: absolute;
   top: 80%;
@@ -126,20 +112,18 @@ p {
   text-align: left;
   font-size: 22px;
 
-  padding-left: 15px;
-  padding-top: 10px;
-
   animation: slideInLeft 0.7s ease-in 1 normal none;
 }
 
 .calories-counter-logo {
-  margin-bottom: 10px;
+  width: 90px;
 }
-
 
 .distance-box {
   display: flex;
-
+  justify-content: space-around;
+  align-items: center;
+  
   position: absolute;
   top: 80%;
   left: 75%;
@@ -159,14 +143,11 @@ p {
   font-weight: bold;
   font-size: 22px;
 
-  padding-left: 15px;
-  padding-top: 10px;
-
   animation: slideInLeft 0.9s ease-in 1 normal none;
 }
 
 .distance-box-logo {
-  margin-bottom: 10px;
+  width: 90px;
 }
 
 @keyframes slideInLeft {
@@ -178,5 +159,3 @@ p {
     transform: translateX(-200px);
   }
 }
-
-
