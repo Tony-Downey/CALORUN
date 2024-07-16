@@ -1,14 +1,33 @@
+{% extends "base.html" %} {% block title %}Upload CSV for Calculation{% endblock
+title %} {% block content %}
+<div class="main-content">
+  <p class="header-text">Upload CSV for Calculation</p>
+  <form
+    class="upload"
+    action="/calculate"
+    method="post"
+    enctype="multipart/form-data"
+  >
+    <input type="file" id="actual-btn" hidden />
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Upload CSV for Calculation</title>
-</head>
-<body>
-    <h1>Upload CSV for Calculation</h1>
-    <form action="/calculate" method="post" enctype="multipart/form-data">
-        <input type="file" name="file" />
-        <input type="submit" value="Upload" />
-    </form>
-</body>
-</html>
+    <!-- our custom upload button -->
+    <label class="custom-label" for="actual-btn">Choose File</label>
+
+    <!-- name of file chosen -->
+    <span id="file-chosen">No file chosen</span>
+
+    <input class="submit" type="submit" value="Upload" />
+  </form>
+</div>
+
+{% block javascript %}
+<script type="text/javascript">
+  const actualBtn = document.getElementById('actual-btn');
+
+  const fileChosen = document.getElementById('file-chosen');
+
+  actualBtn.addEventListener('change', function(){
+    fileChosen.textContent = this.files[0].name
+}) 
+
+{% endblock %} {% endblock content %}

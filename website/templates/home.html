@@ -20,9 +20,11 @@
       <p>
         Distance Ran:
       </p>
-      <p>
-        100km
-      </p>
+      {% if results %}
+      <p> {{ results.total_distance }} m </p>
+      {% else %}
+      <p> 0 m </p>
+      {% endif %}
     </div>
   
     <div class="calories-counter-box">
@@ -30,9 +32,23 @@
       <p>
         Calories Consumed:
       </p>
+      {% if results %}
+      <p> {{ results.total_calories }} m </p>
+      {% else %}
+      <p> 0 calo </p>
+      {% endif %}
+    </div>
+
+    <div class="average-speed-box">
+      <img class="average-speed-logo" src="/static/image/running.svg">
       <p>
-        100km
+        Average speed:
       </p>
+      {% if results %}
+      <p> {{ results.average_speed }} m </p>
+      {% else %}
+      <p> 0 m </p>
+      {% endif %}
     </div>
   </div>
   

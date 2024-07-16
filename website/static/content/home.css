@@ -86,49 +86,24 @@ body {
   height: 100%;
 }
 
+
+
+.user-results {
+  display: flex;
+  position: absolute;
+  top: 65%;
+  height: 200px;
+  width: 100%;
+  justify-content: space-around;
+  gap: px;
+  align-items: center;
+  animation: slideInLeft 0.7s ease-in 1 normal none;
+}
+
 .calories-counter-box {
   display: flex;
   justify-content: space-around;
   align-items: center;
-
-  position: absolute;
-  top: 80%;
-  left: 25%;
-  margin-right: -50%;
-  transform: translate(-50%, -50%);
-
-  height: 100px;
-  width: 400px;
-
-  background-color: rgba(0, 0, 0, 0.621);
-  border-radius: 40px;
-  border: 0px solid red;
-
-  box-shadow: 0px 0px 20px rgb(206, 60, 60);
-  position: absolute;
-
-  color: white;
-  font-weight: bold;
-  text-align: left;
-  font-size: 22px;
-
-  animation: slideInLeft 0.7s ease-in 1 normal none;
-}
-
-.calories-counter-logo {
-  width: 90px;
-}
-
-.distance-box {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  
-  position: absolute;
-  top: 80%;
-  left: 75%;
-  margin-right: -50%;
-  transform: translate(-50%, -50%);
 
   height: 100px;
   width: 400px;
@@ -142,12 +117,56 @@ body {
   color: white;
   font-weight: bold;
   font-size: 22px;
+}
 
-  animation: slideInLeft 0.9s ease-in 1 normal none;
+.calories-counter-logo {
+  width: 90px;
+}
+
+.distance-box {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  height: 100px;
+  width: 400px;
+
+  background-color: rgba(0, 0, 0, 0.621);
+  border-radius: 40px;
+  border: 0 solid red;
+
+  box-shadow: 0px 0px 20px rgb(206, 60, 60);
+
+  color: white;
+  font-weight: bold;
+  font-size: 22px;
 }
 
 .distance-box-logo {
   width: 90px;
+}
+
+.average-speed-box {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  height: 100px;
+  width: 400px;
+
+  background-color: rgba(0, 0, 0, 0.621);
+  border-radius: 40px;
+  border: 0 solid red;
+
+  box-shadow: 0px 0px 20px rgb(206, 60, 60);
+
+  color: white;
+  font-weight: bold;
+  font-size: 22px;
+}
+
+.average-speed-logo {
+  width: 80px;
 }
 
 @keyframes slideInLeft {
@@ -156,6 +175,6 @@ body {
   }
 
   to {
-    transform: translateX(-200px);
+    transform: translateX(0);
   }
 }
