@@ -56,9 +56,11 @@
       <p>
         Average Speed: 
       </p>
-      <p>
-        10km/h
-      </p>
+      {% if results %}
+      <p> {{ results.average_speed }} m </p>
+      {% else %}
+      <p> 0 m </p>
+      {% endif %}
     </div>
   </div>
   
