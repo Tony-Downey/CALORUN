@@ -89,15 +89,17 @@ body {
 
 
 .user-results {
-  display: flex;
+  display: grid;
   position: absolute;
   top: 65%;
   height: 200px;
   width: 100%;
-  justify-content: space-around;
-  gap: px;
+  justify-items: center;
   align-items: center;
+  gap: 10px;
   animation: slideInLeft 0.7s ease-in 1 normal none;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 20px;
 }
 
 .calories-counter-box {
@@ -140,6 +142,10 @@ body {
   color: white;
   font-weight: bold;
   font-size: 22px;
+}
+
+.distance-box-logo {
+  width: 90px;
 }
 
 .average-speed-logo {
