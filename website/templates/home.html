@@ -18,7 +18,7 @@
     <div class="distance-box">
       <img class="distance-box-logo" src="/static/image/road.png">
       <p>
-        Distance Ran:
+        Distance Run:
       </p>
       {% if results %}
       <p> {{ results.total_distance }} m </p>
@@ -33,16 +33,16 @@
         Calories Consumed:
       </p>
       {% if results %}
-      <p> {{ results.total_calories }} m </p>
+      <p> {{ results.total_calories }} cal </p>
       {% else %}
       <p> 0 calo </p>
       {% endif %}
     </div>
 
-    <div class="average-speed-box">
-      <img class="average-speed-logo" src="/static/image/running.svg">
+    <div class="total-distance-box">
+      <img class="total-distance-logo" src="/static/image/running.svg">
       <p>
-        Average speed:
+        Total distance:
       </p>
       {% if results %}
       <p> {{ results.average_speed }} m </p>
@@ -56,9 +56,11 @@
       <p>
         Average Speed: 
       </p>
-      <p>
-        10km/h
-      </p>
+      {% if results %}
+      <p> {{ results.average_speed }} m/s </p>
+      {% else %}
+      <p> 0 m </p>
+      {% endif %}
     </div>
   </div>
   
