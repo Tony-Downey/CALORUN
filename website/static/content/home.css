@@ -169,6 +169,10 @@ body {
   width: 80px;
 }
 
+.time-logo {
+  width: 80px;
+}
+
 @keyframes slideInLeft {
   from {
     transform: translateX(-900px);
