@@ -55,41 +55,94 @@ def sign_up():
             
     return render_template("sign_up.html",user=current_user)
 
-from flask import Blueprint, render_template, request
+from flask import Flask, request, render_template
+from flask_login import current_user
 import pandas as pd
-import numpy as np
-from geopy.distance import geodesic
+import json
+from datetime import datetime
+from math import radians, sin, cos, sqrt, atan2
+from io import StringIO
 
-# Define the new route for calculations
 @auth.route('/calculate', methods=['GET', 'POST'])
 def calculate():
-    if request.method == 'POST':
+    if request.method == 'POST':        
+        if 'file' not in request.files:
+            return 'No file part'
         file = request.files['file']
         if file:
-            # Load the uploaded CSV file
-            df = pd.read_csv(file)
-
-            # Calculate distance between consecutive GPS coordinates
             def haversine_distance(lat1, lon1, lat2, lon2):
-                return geodesic((lat1, lon1), (lat2, lon2)).meters
+                R = 6371  # Earth's radius in kilometers
 
-            distances = []
-            for i in range(1, len(df)):
-                lat1, lon1 = map(float, df['Gps'][i-1].split(','))
-                lat2, lon2 = map(float, df['Gps'][i].split(','))
-                distance = haversine_distance(lat1, lon1, lat2, lon2)
-                distances.append(distance)
+                lat1, lon1, lat2, lon2 = map(radians, [lat1, lon1, lat2, lon2])
+                
+                dlat = lat2 - lat1
+                dlon = lon2 - lon1
+                
+                a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
+                c = 2 * atan2(sqrt(a), sqrt(1-a))
+                
+                distance = R * c
+                return distance
 
-            # Add distance column
-            distances.insert(0, 0)  # No distance for the first point
-            df['Distance'] = distances
+            from io import StringIO
 
-            # Calculate total distance
-            total_distance = df['Distance'].sum() / 1000  # in kilometers
+            def parse_csv(file):
+                data = []
+                prev_lat = prev_lon = prev_time = None
+                total_distance = 0
+                first_timestamp = None
+                last_timestamp = None
+                
+                # Read the file content and decode it
+                file_content = file.stream.read().decode('utf-8')
+                
+                # Create a file-like object from the string
+                csv_file = StringIO(file_content)
+                
+                next(csv_file)  # Skip the header row
+                for line in csv_file:
+                    time_str, value_str = line.strip().split(',', 1)
+                    
+                    timestamp = datetime.fromisoformat(time_str.replace('Z', '+00:00'))
+                    value = json.loads(value_str)
+                    
+                    lat, lon = value['lat'], value['lon']
+                    
+                    if first_timestamp is None:
+                        first_timestamp = timestamp
+                    last_timestamp = timestamp
+                    
+                    if prev_lat is not None:
+                        distance = haversine_distance(prev_lat, prev_lon, lat, lon)
+                        time_diff = (timestamp - prev_time).total_seconds() / 3600  # Convert to hours
+                        
+                        if time_diff > 0:
+                            speed = distance / time_diff  # km/h
+                        else:
+                            speed = 0
+                        
+                        total_distance += distance
+                    else:
+                        distance = 0
+                        speed = 0
+                    
+                    data.append({
+                        'timestamp': timestamp,
+                        'latitude': lat,
+                        'longitude': lon,
+                        'distance': distance,
+                        'speed': speed
+                    })
+                    
+                    prev_lat, prev_lon, prev_time = lat, lon, timestamp
+                
+                total_time = (last_timestamp - first_timestamp).total_seconds() / 3600  # in hours
+                avg_speed = total_distance / total_time if total_time > 0 else 0
+                
+                return total_distance, total_time, avg_speed
 
-            # Calculate average speed
-            total_time_hours = (pd.to_datetime(df['Timestamp'].iloc[-1]) - pd.to_datetime(df['Timestamp'].iloc[0])).total_seconds() / 3600
-            average_speed = total_distance / total_time_hours  # in km/h
+            # Usage
+            total_distance, total_time, average_speed = parse_csv(file)
 
             # Calorie calculation (simplified model)
             calories_per_km = 60
@@ -97,10 +150,10 @@ def calculate():
 
             # Return the results
             results = {
-                'total_distance': total_distance,
-                'average_speed': average_speed,
-                'total_calories': total_calories
+                'total_distance': round(total_distance,2),
+                'average_speed': round(average_speed,2),
+                'total_calories': round(total_calories)
             }
-            return render_template('home.html', results=results)
+            return render_template('home.html', user=current_user, results=results)
     
     return render_template('calculate.html', user=current_user)
