@@ -52,14 +52,14 @@
     </div>
 
     <div class="average-speed-box">
-      <img class="average-speed-logo" src="/static/image/average-speed.webp">
+      <img class="time-logo" src="/static/image/time.svg">
       <p>
-        Average Speed: 
+        Time: 
       </p>
       {% if results %}
-      <p> {{ results.average_speed }} m </p>
+      <p> {{ results.total_time }} m </p>
       {% else %}
-      <p> 0 m </p>
+      <p> 0 h 0 m 0 s </p>
       {% endif %}
     </div>
   </div>

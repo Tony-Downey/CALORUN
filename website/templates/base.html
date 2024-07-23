@@ -29,7 +29,6 @@
     <link rel="stylesheet" href="/static/content/home.css" />
     <link rel="stylesheet" href="/static/content/calculate.css" />
 
-
     <title>{% block title %}Home{% endblock %}</title>
   </head>
   <body>
@@ -37,23 +36,58 @@
       <button
         class="navbar-toggler custom-toggler"
         type="button"
-        id = "collapse-button"
+        id="collapse-button"
         data-toggle="collapse"
         data-target="#navbar"
-        href = "#custom-navbar"
+        href="#custom-navbar"
       >
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbar">
         <div class="navbar-nav">
           {% if user.is_authenticated %}
-          <a class="nav-item nav-link" style="color: red; font-weight: bold;" id="home" href="/">Home</a>
-          <a class="nav-item nav-link" style="color: red; font-weight: bold;" id="upload" href="/calculate">Upload user data</a>
-          <a class="nav-item nav-link" style="color: red; font-weight: bold;" id="download">Download user data</a>
-          <a class="nav-item nav-link" style="color: red; font-weight: bold;" id="logout" href="/logout">Logout</a>
+          <a
+            class="nav-item nav-link"
+            style="color: red; font-weight: bold"
+            id="home"
+            href="/"
+            >Home</a
+          >
+          <a
+            class="nav-item nav-link"
+            style="color: red; font-weight: bold"
+            id="upload"
+            href="/calculate"
+            >Upload user data</a
+          >
+          <a
+            class="nav-item nav-link"
+            style="color: red; font-weight: bold"
+            id="download"
+            >Download user data</a
+          >
+          <a
+            class="nav-item nav-link"
+            style="color: red; font-weight: bold"
+            id="logout"
+            href="/logout"
+            >Logout</a
+          >
           {% else %}
-          <a class="nav-item nav-link" style="color: red; font-weight: bold;" id="login" href="/login">Login</a>
-          <a class="nav-item nav-link" style="color: red; font-weight: bold;" id="signUp" href="/sign-up">Sign Up</a>
+          <a
+            class="nav-item nav-link"
+            style="color: red; font-weight: bold"
+            id="login"
+            href="/login"
+            >Login</a
+          >
+          <a
+            class="nav-item nav-link"
+            style="color: red; font-weight: bold"
+            id="signUp"
+            href="/sign-up"
+            >Sign Up</a
+          >
           {% endif %}
         </div>
       </div>
@@ -104,32 +138,37 @@
           $(".alert").alert("close");
         }, 2000);
       });
-      
-  const actualBtn = document.getElementById('actual-btn');
 
-  const fileChosen = document.getElementById('file-chosen');
+      const actualBtn = document.getElementById("actual-btn");
 
-  actualBtn.addEventListener('change', function(){
-    fileChosen.textContent = this.files[0].name
-}) 
+      const fileChosen = document.getElementById("file-chosen");
+
+      actualBtn.addEventListener("change", function () {
+        fileChosen.textContent = this.files[0].name;
+      });
     </script>
 
     <script>
-        let isOriginal = true;
+      let isOriginal = true;
 
-        document.getElementById('collapse-button').addEventListener('click', function() {
-            var element = document.getElementById('custom-navbar');
-            var button = document.getElementById('collapse-button');
+      document
+        .getElementById("collapse-button")
+        .addEventListener("click", function () {
+          var element = document.getElementById("custom-navbar");
+          var button = document.getElementById("collapse-button");
 
-            if (isOriginal) {
-                element.style.backgroundColor = 'rgba(' + [255,0,0,0.1].join(',') + ')';
-                element.style.borderBlockStyle = 'solid';
-                element.style.borderBlockColor = 'red'
-            } else {
-                element.style.backgroundColor = 'rgba(' + [255,0,0,0].join(',') + ')';
-                element.style.borderBlockColor = 'rgba(' + [255,0,0,0].join(',') + ')';
-            }
-            isOriginal = !isOriginal;
+          if (isOriginal) {
+            element.style.backgroundColor =
+              "rgba(" + [255, 0, 0, 0.1].join(",") + ")";
+            element.style.borderBlockStyle = "solid";
+            element.style.borderBlockColor = "red";
+          } else {
+            element.style.backgroundColor =
+              "rgba(" + [255, 0, 0, 0].join(",") + ")";
+            element.style.borderBlockColor =
+              "rgba(" + [255, 0, 0, 0].join(",") + ")";
+          }
+          isOriginal = !isOriginal;
         });
     </script>
 
@@ -145,6 +184,5 @@
       }
     </script>
     {% endblock %}
-
   </body>
 </html>
