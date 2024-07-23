@@ -1,16 +1,8 @@
 # website/routes.py
 
-from flask import Blueprint, render_template, flash, redirect, url_for
+from flask import render_template, flash, redirect, url_for
 from website import app
 from website.forms import LoginForm, RegistrationForm, PostForm
-from .models import User
-
-main = Blueprint('main', __name__)
-
-@main.route('/')
-def home():
-    user = User.query.first()  # Example: Get the first user from the database
-    return render_template('home.html', user=user)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
