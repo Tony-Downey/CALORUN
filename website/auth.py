@@ -31,129 +31,40 @@ def logout():
     logout_user()
     return redirect(url_for('auth.login'))
 
-@auth.route('/sign-up', methods=['GET', 'POST'])
-def sign_up():
-    if request.method == 'POST':
-        username = request.form.get('username')
-        password = request.form.get('password')
-        confirm_password = request.form.get('confirm_password')
+@auth.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        hashed_password = generate_password_hash(form.password.data, method='sha256')
+        new_user = User(email=form.email.data, password=hashed_password)
+        db.session.add(new_user)
+        db.session.commit()
+        flash('Your account has been created! You are now able to log in', 'success')
+        return redirect(url_for('auth.login'))
+    return render_template('register.html', form=form)
 
-        if len(username) < 2:
-            flash('Invalid username (must be greater than 1 characters)', category='error') #Message flashing funtion of Flask
-        elif password != confirm_password:
-            flash('Password don\'t match', category='error')
-        elif len(password) < 7:
-            flash('Invalid password(must be greater then 6 characters)', category='error')
-        else:
-            new_user = User(username = username, password = generate_password_hash(password, method='pbkdf2:sha256'))
-            db.session.add(new_user)
-            db.session.commit() 
-            
-            flash('Account successfully created', category='success')
-            
-            return redirect(url_for('views.home'))
-            
-    return render_template("sign_up.html",user=current_user)
+# Models (models.py)
+from . import db
+from flask_login import UserMixin
 
-from flask import Flask, request, render_template
-from flask_login import current_user
-import pandas as pd
-import json
-from datetime import datetime
-from math import radians, sin, cos, sqrt, atan2
-from io import StringIO
+class User(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(150), unique=True, nullable=False)
+    password = db.Column(db.String(150), nullable=False)
 
-@auth.route('/calculate', methods=['GET', 'POST'])
-def calculate():
-    if request.method == 'POST':        
-        if 'file' not in request.files:
-            return 'No file part'
-        file = request.files['file']
-        if file:
-            def haversine_distance(lat1, lon1, lat2, lon2):
-                R = 6371  # Earth's radius in kilometers
+# Forms (forms.py)
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms.validators import DataRequired, Email, EqualTo, Length
 
-                lat1, lon1, lat2, lon2 = map(radians, [lat1, lon1, lat2, lon2])
-                
-                dlat = lat2 - lat1
-                dlon = lon2 - lon1
-                
-                a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
-                c = 2 * atan2(sqrt(a), sqrt(1-a))
-                
-                distance = R * c
-                return distance
+class LoginForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    remember = BooleanField('Remember Me')
+    submit = SubmitField('Login')
 
-            from io import StringIO
-
-            def parse_csv(file):
-                data = []
-                prev_lat = prev_lon = prev_time = None
-                total_distance = 0
-                first_timestamp = None
-                last_timestamp = None
-                
-                # Read the file content and decode it
-                file_content = file.stream.read().decode('utf-8')
-                
-                # Create a file-like object from the string
-                csv_file = StringIO(file_content)
-                
-                next(csv_file)  # Skip the header row
-                for line in csv_file:
-                    time_str, value_str = line.strip().split(',', 1)
-                    
-                    timestamp = datetime.fromisoformat(time_str.replace('Z', '+00:00'))
-                    value = json.loads(value_str)
-                    
-                    lat, lon = value['lat'], value['lon']
-                    
-                    if first_timestamp is None:
-                        first_timestamp = timestamp
-                    last_timestamp = timestamp
-                    
-                    if prev_lat is not None:
-                        distance = haversine_distance(prev_lat, prev_lon, lat, lon)
-                        time_diff = (timestamp - prev_time).total_seconds() / 3600  # Convert to hours
-                        
-                        if time_diff > 0:
-                            speed = distance / time_diff  # km/h
-                        else:
-                            speed = 0
-                        
-                        total_distance += distance
-                    else:
-                        distance = 0
-                        speed = 0
-                    
-                    data.append({
-                        'timestamp': timestamp,
-                        'latitude': lat,
-                        'longitude': lon,
-                        'distance': distance,
-                        'speed': speed
-                    })
-                    
-                    prev_lat, prev_lon, prev_time = lat, lon, timestamp
-                
-                total_time = (last_timestamp - first_timestamp).total_seconds() / 3600  # in hours
-                avg_speed = total_distance / total_time if total_time > 0 else 0
-                
-                return total_distance, total_time, avg_speed
-
-            # Usage
-            total_distance, total_time, average_speed = parse_csv(file)
-
-            # Calorie calculation (simplified model)
-            calories_per_km = 60
-            total_calories = total_distance * calories_per_km
-
-            # Return the results
-            results = {
-                'total_distance': round(total_distance,2),
-                'average_speed': round(average_speed,2),
-                'total_calories': round(total_calories)
-            }
-            return render_template('home.html', user=current_user, results=results)
-    
-    return render_template('calculate.html', user=current_user)
+class RegistrationForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    password = PasswordField('Password', validators=[DataRequired(), Length(min=8)])
+    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('Register')
