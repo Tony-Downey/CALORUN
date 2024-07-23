@@ -152,7 +152,7 @@ def calculate():
                 total_seconds = int(hours * 3600)  # Convert hours to seconds
                 hours, remainder = divmod(total_seconds, 3600)
                 minutes, seconds = divmod(remainder, 60)
-                return f"{hours:02d}:{minutes:02d}:{seconds:02d}"
+                return f"{hours:02d} h {minutes:02d} m {seconds:02d} s"
             formatted_time = format_time(total_time)
             
             # Return the results
